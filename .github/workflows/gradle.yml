@@ -20,12 +20,21 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      # Grant execute permission for gradlew
+
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
+
+      - name: Clean Gradle cache
+        run: ./gradlew clean
+
+
       - name: Build with Gradle Wrapper
         run: ./gradlew build
+
+
+      - name: Run tests
+        run: ./gradlew test --stacktrace --info
 
   dependency-submission:
     runs-on: ubuntu-latest
@@ -40,6 +49,6 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      # Generates and submits a dependency graph, enabling Dependabot Alerts for all project dependencies.
+
       - name: Generate and submit dependency graph
-        uses: gradle/actions/dependency-submission@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
+        uses: gradle/actions/dependency-submission@af1da67850ed9a4cedd57bfd976089dd991e2582
